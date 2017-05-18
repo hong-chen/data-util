@@ -7,14 +7,19 @@ This code can be used to explore data with the following format:
 - netCDF
 - netCDF4
 - IDL save file
+- geoTIFF
+- png
 
 ---
 ### Dependencies
 
-- h5py
-- pyhdf
-- scipy.io
-- netCDF4
+- Python 3.6
+  - [h5py](http://www.h5py.org/)
+  - [pyhdf](http://fhs.github.io/python-hdf4/)
+  - [scipy.io](https://docs.scipy.org/doc/scipy/reference/io.html)
+  - [netCDF4](http://unidata.github.io/netcdf4-python/)
+- gdalinfo
+- [imgcat](https://www.iterm2.com/documentation-images.html)
 
 ---
 ### How to use
