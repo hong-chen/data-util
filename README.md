@@ -32,6 +32,6 @@ This code can be used to explore data with the following format:
 
 4. For data that has unclear extention, e.g., `test.idlsav`,
 
-  ```lss test.h5 idl```
+  ```lss test.idlsav idl```
 
 
