@@ -36,12 +36,12 @@ if os.path.isfile(fullFileName):
                 d    = f[vname]
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(d.shape))
             f.close()
-            print('\nSample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+            print('-')
+            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
             print('-'*80)
             msg = 'import h5py\nfname = \'%s\'\nf = h5py.File(fname, \'r\')\ndata = f[\'%s\'][...]\nf.close()' % (fullFileName, vname)
             print(msg)
             print('-'*80)
-            print('-')
         except ImportError:
             exit('Error [lss]: "h5py" is not installed, try "pip install h5py".')
 
@@ -65,12 +65,12 @@ if os.path.isfile(fullFileName):
                 info = d.info()
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(info[2]).replace('[', '(').replace(']', ')'))
             f.end()
-            print('\nSample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+            print('-')
+            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
             print('-'*80)
             msg = 'from pyhdf.SD import SD, SDC\nfname = \'%s\'\nf = SD(fname, SDC.READ)\ndata = f.select(\'%s\')[:]\nf.end()' % (fullFileName, vname)
             print(msg)
             print('-'*80)
-            print('-')
         except ImportError:
             exit('Error [lss]: "pyhdf" is not installed, try "pip install python-hdf4".')
 
@@ -91,12 +91,12 @@ if os.path.isfile(fullFileName):
                     vnames_next.append(vname)
             for vname in vnames_next:
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), f[vname].shape)
-            print('\nSample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+            print('-')
+            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
             print('-'*80)
             msg = 'from scipy.io import readsav\nfname = \'%s\'\nf = readsav(fname, \'r\')\ndata = f[\'%s\']' % (fullFileName, vname)
             print(msg)
             print('-'*80)
-            print('-')
         except ImportError:
             exit('Error [lss]: cannot find "scipy.io.readsav".')
 
@@ -118,12 +118,12 @@ if os.path.isfile(fullFileName):
                 d = f.variables[vname]
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), d.shape)
             f.close()
-            print('\nSample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+            print('-')
+            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
             print('-'*80)
             msg = 'from scipy.io.netcdf import netcdf_file\nfname = \'%s\'\nf = netcdf_file(fname)\ndata = f.variables[\'%s\'][...]\nf.close()' % (fullFileName, vname)
             print(msg)
             print('-'*80)
-            print('-')
         except ImportError:
             exit('Error [lss]: cannot find "scipy.io.netcdf".')
 
@@ -145,13 +145,12 @@ if os.path.isfile(fullFileName):
                 d = f.variables[vname]
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(d[...].shape))
             f.close()
-
-            print('\nSample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+            print('-')
+            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
             print('-'*80)
             msg = 'import netCDF4 as nc4\nfname = \'%s\'\nf = nc4.Dataset(fname, \'r\')\ndata = f.variables[\'%s\'][...]\nf.close()' % (fullFileName, vname)
             print(msg)
             print('-'*80)
-            print('-')
         except ImportError:
             exit('Error [lss]: "netCDF4" is missing, try "pip install netCDF4".')
 
