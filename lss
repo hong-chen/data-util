@@ -155,6 +155,7 @@ if os.path.isfile(fullFileName):
             exit('Error [lss]: "netCDF4" is missing, try "pip install netCDF4".')
 
     elif extensionL in ['tiff']:
+        # gdalinfo
         print('+')
         os.system('gdalinfo %s' % fullFileName)
         print('-')
