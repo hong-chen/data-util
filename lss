@@ -167,4 +167,3 @@ if os.path.isfile(fullFileName):
         exit('Error [lss]: do not support the file type.')
 else:
     exit('Error [lss]: %s does not exist.' % fullFileName)
-else:
