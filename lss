@@ -127,7 +127,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: cannot find "scipy.io.netcdf".')
 
-    elif extensionL in ['nc4']:
+    elif extensionL in ['n4', 'nc4']:
         try:
             import netCDF4 as nc4
             print('+')
