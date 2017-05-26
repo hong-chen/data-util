@@ -164,7 +164,7 @@ if os.path.isfile(fullFileName):
         os.system('imgcat %s' % fullFileName)
 
     else:
-        exit('Error [lss]: do not support the file type.')
+        exit('Error [lss]: do not support file type \'%s\'.' % extensionL)
 
 else:
     exit('Error [lss]: %s does not exist.' % fullFileName)
