@@ -69,7 +69,7 @@ This code can be used to explore data with the following format:
   --------------------------------------------------------------------------------
   ```
 
-4. For data that has unclear file type extension, e.g., `test.idlsav`,
+4. For data that has unclear file type from its extension, e.g., `test.idlsav`,
 
   ```bash
   lss test.idlsav idl
