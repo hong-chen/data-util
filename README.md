@@ -2,11 +2,11 @@
 
 This code can be used to explore data with the following format:
 
-- HDF4
-- HDF5
-- netCDF
-- netCDF4
-- IDL save file
+- HDF4 (support extensions of `.h4`, `.hdf`, `.hdf4`)
+- HDF5 (support extensions of `.h5`, `.hdf5`)
+- netCDF (support extensions of `.nc`, `.netcdf`, `.cdf`)
+- netCDF4 (support extensions of `.n4`, `.nc4`)
+- IDL save file (support extensions of `.idl`, `.sav`, `.out`)
 - geoTIFF
 - png
 
