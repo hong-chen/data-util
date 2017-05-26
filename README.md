@@ -18,8 +18,8 @@ This code can be used to explore data with the following format:
   - [pyhdf](http://fhs.github.io/python-hdf4/)
   - [scipy.io](https://docs.scipy.org/doc/scipy/reference/io.html)
   - [netCDF4](http://unidata.github.io/netcdf4-python/)
-- gdalinfo
-- [imgcat](https://www.iterm2.com/documentation-images.html)
+- [gdal](http://www.gdal.org/)
+- [imgcat](https://www.iterm2.com/documentation-images.html) (only support iTerm2)
 
 ---
 ### How to use
