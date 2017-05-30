@@ -28,7 +28,7 @@ if os.path.isfile(fullFileName):
             Nmax   = max([len(vname) for vname in vnames]) + 1
             for vname in vnames:
                 d    = f[vname]
-                if d.ndim == 1 and d.shape[0] == 1:
+                if len(d.shape) == 1 and d.shape[0] == 1:
                     print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), d[...])
                 else:
                     vnames_next.append(vname)
