@@ -34,7 +34,7 @@ if os.path.isfile(fullFileName):
                     vnames_next.append(vname)
             for vname in vnames_next:
                 d    = f[vname]
-                print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(d.shape))
+                print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(d.shape)))
             f.close()
             print('-')
             print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
@@ -63,7 +63,7 @@ if os.path.isfile(fullFileName):
             for vname in vnames_next:
                 d    = f.select(vname)
                 info = d.info()
-                print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(info[2]).replace('[', '(').replace(']', ')'))
+                print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(info[2]).replace('[', '(').replace(']', ')')))
             f.end()
             print('-')
             print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
@@ -143,7 +143,7 @@ if os.path.isfile(fullFileName):
                     vnames_next.append(vname)
             for vname in vnames_next:
                 d = f.variables[vname]
-                print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), str(d[...].shape))
+                print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(d[...].shape)))
             f.close()
             print('-')
             print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
