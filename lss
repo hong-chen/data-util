@@ -28,9 +28,9 @@ if os.path.isfile(fullFileName):
         try:
             import h5py
 
+            def GET_VNAMES_H5(g, prefix=''):
             # courtesy of Trilarion (https://stackoverflow.com/users/1536976/trilarion)
             # on the post of https://stackoverflow.com/questions/34330283/how-to-differentiate-between-hdf5-datasets-and-groups-with-h5py
-            def GET_VNAMES_H5(g, prefix=''):
                 vnames = []
                 for key in g.keys():
                     item = g[key]
@@ -45,7 +45,7 @@ if os.path.isfile(fullFileName):
 
             vnames = []
             for vname in GET_VNAMES_H5(f):
-                vnames.append(vname)
+                vnames.append(vname[1:])  # get rid of the first '/'
 
             vnames_next = []
             Nmax   = max([len(vname) for vname in vnames]) + 1
@@ -60,11 +60,7 @@ if os.path.isfile(fullFileName):
                 print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(d.shape)))
             f.close()
             print('-')
-            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-            print('-'*80)
-            msg = 'import h5py\nfname = \'%s\'\nf = h5py.File(fname, \'r\')\ndata = f[\'%s\'][...]\nf.close()' % (fullFileName, vname)
-            print(msg)
-            print('-'*80)
+
         except ImportError:
             exit('Error [lss]: "h5py" has NOT been installed.')
 
@@ -90,13 +86,9 @@ if os.path.isfile(fullFileName):
                 print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(info[2]).replace('[', '(').replace(']', ')')))
             f.end()
             print('-')
-            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-            print('-'*80)
-            msg = 'from pyhdf.SD import SD, SDC\nfname = \'%s\'\nf = SD(fname, SDC.READ)\ndata = f.select(\'%s\')[:]\nf.end()' % (fullFileName, vname)
-            print(msg)
-            print('-'*80)
         except ImportError:
-            exit('Error [lss]: "pyhdf" is not installed, try "pip install python-hdf4".')
+            # "pip3 install python-hdf4"
+            exit('Error [lss]: "pyhdf" has NOT been installed.')
 
     # IDL sav
     elif extensionL in ['out', 'sav', 'idl']:
@@ -119,15 +111,10 @@ if os.path.isfile(fullFileName):
                 for vname in vnames_next:
                     print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), f[vname].shape)
                 print('-')
-                print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-                print('-'*80)
-                msg = 'from scipy.io import readsav\nfname = \'%s\'\nf = readsav(fname, \'r\')\ndata = f[\'%s\']' % (fullFileName, vname)
-                print(msg)
-                print('-'*80)
             except ImportError:
-                exit('Error [lss]: cannot find "scipy.io.readsav".')
+                exit('Error [lss]: "scipy.io.readsav" has NOT been installed.')
         except ImportError:
-            exit('Error [lss]: "numpy" has not been installed.')
+            exit('Error [lss]: "numpy" has NOT been installed.')
 
     # netCDF
     elif extensionL in ['nc', 'netcdf', 'cdf']:
@@ -149,13 +136,8 @@ if os.path.isfile(fullFileName):
                 print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), d.shape)
             f.close()
             print('-')
-            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-            print('-'*80)
-            msg = 'from scipy.io.netcdf import netcdf_file\nfname = \'%s\'\nf = netcdf_file(fname)\ndata = f.variables[\'%s\'][...]\nf.close()' % (fullFileName, vname)
-            print(msg)
-            print('-'*80)
         except ImportError:
-            exit('Error [lss]: cannot find "scipy.io.netcdf".')
+            exit('Error [lss]: "scipy.io.netcdf" has NOT been installed.')
 
     # netCDF4
     elif extensionL in ['n4', 'nc4']:
@@ -177,13 +159,8 @@ if os.path.isfile(fullFileName):
                 print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(d[...].shape)))
             f.close()
             print('-')
-            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-            print('-'*80)
-            msg = 'import netCDF4 as nc4\nfname = \'%s\'\nf = nc4.Dataset(fname, \'r\')\ndata = f.variables[\'%s\'][...]\nf.close()' % (fullFileName, vname)
-            print(msg)
-            print('-'*80)
         except ImportError:
-            exit('Error [lss]: "netCDF4" is missing, try "pip install netCDF4".')
+            exit('Error [lss]: "netCDF4" has NOT been installed.')
 
     # GeoTIFF
     elif extensionL in ['tiff']:
