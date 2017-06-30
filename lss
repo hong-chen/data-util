@@ -1,4 +1,7 @@
-#!/Users/hoch4240/Chen/soft/python/3/bin/python
+#!/usr/bin/env python3
+
+# by Hong Chen (me@hongchen.cz)
+
 import os
 import sys
 import numpy
@@ -14,10 +17,12 @@ elif Nargv == 3:
     fullFileName = sys.argv[1]
     extension = sys.argv[2]
 else:
-    exit('Error [lss]: wrong input argument number.')
+    exit('Error [lss]: wrong number of arguments.')
 
 if os.path.isfile(fullFileName):
     extensionL = extension.lower()
+
+    # HDF5 file
     if extensionL in ['h5', 'hdf5']:
         try:
             import h5py
@@ -43,7 +48,7 @@ if os.path.isfile(fullFileName):
             print(msg)
             print('-'*80)
         except ImportError:
-            exit('Error [lss]: "h5py" is not installed, try "pip install h5py".')
+            exit('Error [lss]: "h5py" has NOT been installed.')
 
     elif extensionL in ['hdf', 'h4', 'hdf4']:
         try:
@@ -167,4 +172,4 @@ if os.path.isfile(fullFileName):
         os.system('less %s' % fullFileName)
 
 else:
-    exit('Error [lss]: %s does not exist.' % fullFileName)
+    exit('Error [lss]: %s does NOT exist.' % fullFileName)
