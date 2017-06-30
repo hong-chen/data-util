@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/Users/hoch4240/Chen/soft/python/3/bin/python
+#- #!/usr/bin/env python3 -
 
 # by Hong Chen (me@hongchen.cz)
 
@@ -26,14 +27,31 @@ if os.path.isfile(fullFileName):
     if extensionL in ['h5', 'hdf5']:
         try:
             import h5py
+
+            # courtesy of Trilarion (https://stackoverflow.com/users/1536976/trilarion)
+            # on the post of https://stackoverflow.com/questions/34330283/how-to-differentiate-between-hdf5-datasets-and-groups-with-h5py
+            def GET_VNAMES_H5(g, prefix=''):
+                vnames = []
+                for key in g.keys():
+                    item = g[key]
+                    path = '%s/%s' % (prefix, key)
+                    if isinstance(item, h5py.Dataset):
+                        yield path
+                    elif isinstance(item, h5py.Group):
+                        yield from GET_VNAMES_H5(item, prefix=path)
+
             print('+')
             f = h5py.File(fullFileName, 'r')
-            vnames = f.keys()
+
+            vnames = []
+            for vname in GET_VNAMES_H5(f):
+                vnames.append(vname)
+
             vnames_next = []
             Nmax   = max([len(vname) for vname in vnames]) + 1
             for vname in vnames:
                 d    = f[vname]
-                if len(d.shape) == 1 and d.shape[0] == 1:
+                if len(d.shape) == 0:
                     print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), d[...])
                 else:
                     vnames_next.append(vname)
