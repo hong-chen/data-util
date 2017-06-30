@@ -4,6 +4,7 @@
 
 import os
 import sys
+import shutil
 import numpy
 
 Nargv = len(sys.argv)
@@ -50,6 +51,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "h5py" has NOT been installed.')
 
+    # HDF4
     elif extensionL in ['hdf', 'h4', 'hdf4']:
         try:
             from pyhdf.SD import SD, SDC
@@ -79,6 +81,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "pyhdf" is not installed, try "pip install python-hdf4".')
 
+    # IDL sav
     elif extensionL in ['out', 'sav', 'idl']:
         try:
             from scipy.io import readsav
@@ -105,6 +108,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: cannot find "scipy.io.readsav".')
 
+    # netCDF
     elif extensionL in ['nc', 'netcdf', 'cdf']:
         try:
             from scipy.io.netcdf import netcdf_file
@@ -132,6 +136,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: cannot find "scipy.io.netcdf".')
 
+    # netCDF4
     elif extensionL in ['n4', 'nc4']:
         try:
             import netCDF4 as nc4
@@ -159,14 +164,23 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "netCDF4" is missing, try "pip install netCDF4".')
 
+    # GeoTIFF
     elif extensionL in ['tiff']:
-        # gdalinfo
-        print('+')
-        os.system('gdalinfo %s' % fullFileName)
-        print('-')
+        executable = 'gdalinfo'
+        if shutil.which(executable) != None:
+            print('+')
+            os.system('gdalinfo %s' % fullFileName)
+            print('-')
+        else:
+            exit('Error [lss]: can NOT locate %s.' % executable)
 
+    # PNG
     elif extensionL in ['png']:
-        os.system('imgcat %s' % fullFileName)
+        executable = 'imgcat'
+        if shutil.which(executable) != None:
+            os.system('%s %s' % (executable, fullFileName))
+        else:
+            exit('Error [lss]: can NOT locate %s.' % executable)
 
     else:
         os.system('less %s' % fullFileName)
