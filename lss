@@ -5,7 +5,6 @@
 import os
 import sys
 import shutil
-import numpy
 
 Nargv = len(sys.argv)
 if Nargv == 2:
@@ -84,29 +83,33 @@ if os.path.isfile(fullFileName):
     # IDL sav
     elif extensionL in ['out', 'sav', 'idl']:
         try:
-            from scipy.io import readsav
-            print('+')
-            f      = readsav(fullFileName)
-            vnames = sorted(f.keys())
-            vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 1
-            for vname in vnames:
-                data = f[vname]
-                dataT = type(data)
-                if dataT is not numpy.ndarray:
-                    print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), data)
-                else:
-                    vnames_next.append(vname)
-            for vname in vnames_next:
-                print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), f[vname].shape)
-            print('-')
-            print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
-            print('-'*80)
-            msg = 'from scipy.io import readsav\nfname = \'%s\'\nf = readsav(fname, \'r\')\ndata = f[\'%s\']' % (fullFileName, vname)
-            print(msg)
-            print('-'*80)
+            import numpy
+            try:
+                from scipy.io import readsav
+                print('+')
+                f      = readsav(fullFileName)
+                vnames = sorted(f.keys())
+                vnames_next = []
+                Nmax   = max([len(vname) for vname in vnames]) + 1
+                for vname in vnames:
+                    data = f[vname]
+                    dataT = type(data)
+                    if dataT is not numpy.ndarray:
+                        print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), data)
+                    else:
+                        vnames_next.append(vname)
+                for vname in vnames_next:
+                    print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), f[vname].shape)
+                print('-')
+                print('Sample code for reading \'%s\' in \'%s\':' % (vname, fullFileName))
+                print('-'*80)
+                msg = 'from scipy.io import readsav\nfname = \'%s\'\nf = readsav(fname, \'r\')\ndata = f[\'%s\']' % (fullFileName, vname)
+                print(msg)
+                print('-'*80)
+            except ImportError:
+                exit('Error [lss]: cannot find "scipy.io.readsav".')
         except ImportError:
-            exit('Error [lss]: cannot find "scipy.io.readsav".')
+            exit('Error [lss]: "numpy" has not been installed.')
 
     # netCDF
     elif extensionL in ['nc', 'netcdf', 'cdf']:
@@ -182,6 +185,7 @@ if os.path.isfile(fullFileName):
         else:
             exit('Error [lss]: can NOT locate %s.' % executable)
 
+    # other file
     else:
         os.system('less %s' % fullFileName)
 
