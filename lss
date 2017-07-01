@@ -13,7 +13,7 @@ if Nargv == 2:
     try:
         extension = fullFileName.split('.')[-1]
     except ValueError:
-        exit('Error [lss]: no extension is detected.')
+        extension = 'unknown'
 elif Nargv == 3:
     fullFileName = sys.argv[1]
     extension = sys.argv[2]
@@ -40,7 +40,7 @@ if os.path.isfile(fullFileName):
                     elif isinstance(item, h5py.Group):
                         yield from GET_VNAMES_H5(item, prefix=path)
 
-            print('+')
+            print('+ HDF5')
             f = h5py.File(fullFileName, 'r')
 
             vnames = []
@@ -68,7 +68,7 @@ if os.path.isfile(fullFileName):
     elif extensionL in ['hdf', 'h4', 'hdf4']:
         try:
             from pyhdf.SD import SD, SDC
-            print('+')
+            print('+ HDF4')
             f = SD(fullFileName, SDC.READ)
             vnames = sorted(f.datasets().keys())
             vnames_next = []
@@ -96,7 +96,7 @@ if os.path.isfile(fullFileName):
             import numpy
             try:
                 from scipy.io import readsav
-                print('+')
+                print('+ IDL SAV')
                 f      = readsav(fullFileName)
                 vnames = sorted(f.keys())
                 vnames_next = []
@@ -120,7 +120,7 @@ if os.path.isfile(fullFileName):
     elif extensionL in ['nc', 'netcdf', 'cdf']:
         try:
             from scipy.io.netcdf import netcdf_file
-            print('+')
+            print('+ netCDF')
             f = netcdf_file(fullFileName)
             vnames = f.variables.keys()
             vnames_next = []
@@ -143,7 +143,7 @@ if os.path.isfile(fullFileName):
     elif extensionL in ['n4', 'nc4']:
         try:
             import netCDF4 as nc4
-            print('+')
+            print('+ netCDF4')
             f = nc4.Dataset(fullFileName, 'r')
             vnames = f.variables.keys()
             vnames_next = []
