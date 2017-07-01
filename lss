@@ -119,6 +119,16 @@ if os.path.isfile(fullFileName):
     elif extensionL in ['nc', 'netcdf', 'cdf', 'n4', 'nc4']:
         try:
             import netCDF4 as nc4
+
+            def GET_VNAMES_NC(g, prefix=''):
+                for key in g.variables.keys():
+                    item = g.variables[key]
+                    path = '%s/%s' % (prefix, key)
+                    if isinstance(item, nc4.Variable):
+                        yield path
+                    elif isinstance(item, nc4.Group):
+                        yield from GET_VNAMES_NC(item, prefix=path)
+
             f = nc4.Dataset(fullFileName, 'r')
 
             if 'netcdf4' in f.file_format.lower():
@@ -126,7 +136,10 @@ if os.path.isfile(fullFileName):
             else:
                 print('+ netCDF')
 
-            vnames = f.variables.keys()
+            vnames = []
+            for vname in GET_VNAMES_NC(f):
+                vnames.append(vname[1:])  # get rid of the first '/'
+
             vnames_next = []
             Nmax   = max([len(vname) for vname in vnames]) + 2
             for vname in vnames:
