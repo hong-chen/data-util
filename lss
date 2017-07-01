@@ -29,9 +29,8 @@ if os.path.isfile(fullFileName):
             import h5py
 
             def GET_VNAMES_H5(g, prefix=''):
-            # courtesy of Trilarion (https://stackoverflow.com/users/1536976/trilarion)
-            # on the post of https://stackoverflow.com/questions/34330283/how-to-differentiate-between-hdf5-datasets-and-groups-with-h5py
-                vnames = []
+                # courtesy of Trilarion (https://stackoverflow.com/users/1536976/trilarion)
+                # on the post of https://stackoverflow.com/questions/34330283/how-to-differentiate-between-hdf5-datasets-and-groups-with-h5py
                 for key in g.keys():
                     item = g[key]
                     path = '%s/%s' % (prefix, key)
