@@ -117,33 +117,33 @@ if os.path.isfile(fullFileName):
             exit('Error [lss]: "numpy" has NOT been installed.')
 
     # netCDF
-    elif extensionL in ['nc', 'netcdf', 'cdf']:
-        try:
-            from scipy.io.netcdf import netcdf_file
-            print('+ netCDF')
-            f = netcdf_file(fullFileName)
-            vnames = f.variables.keys()
-            vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 2
-            for vname in vnames:
-                d = f.variables[vname]
-                if len(d.shape) == 1 and d.shape[0] == 1:
-                    print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), d.data)
-                else:
-                    vnames_next.append(vname)
-            for vname in vnames_next:
-                d = f.variables[vname]
-                print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), d.shape)
-            f.close()
-            print('-')
-        except ImportError:
-            exit('Error [lss]: "scipy.io.netcdf" has NOT been installed.')
+    # elif extensionL in ['nc', 'netcdf', 'cdf']:
+    #     try:
+    #         from scipy.io.netcdf import netcdf_file
+    #         print('+ netCDF')
+    #         f = netcdf_file(fullFileName)
+    #         vnames = f.variables.keys()
+    #         vnames_next = []
+    #         Nmax   = max([len(vname) for vname in vnames]) + 2
+    #         for vname in vnames:
+    #             d = f.variables[vname]
+    #             if len(d.shape) == 1 and d.shape[0] == 1:
+    #                 print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), d.data)
+    #             else:
+    #                 vnames_next.append(vname)
+    #         for vname in vnames_next:
+    #             d = f.variables[vname]
+    #             print('%s %s : Dataset ' % (vname, '-'*(Nmax-len(vname))), d.shape)
+    #         f.close()
+    #         print('-')
+    #     except ImportError:
+    #         exit('Error [lss]: "scipy.io.netcdf" has NOT been installed.')
 
     # netCDF4
-    elif extensionL in ['n4', 'nc4']:
+    elif extensionL in ['nc', 'netcdf', 'cdf', 'n4', 'nc4']:
         try:
             import netCDF4 as nc4
-            print('+ netCDF4')
+            print('+ netCDF')
             f = nc4.Dataset(fullFileName, 'r')
             vnames = f.variables.keys()
             vnames_next = []
