@@ -48,7 +48,7 @@ if os.path.isfile(fullFileName):
                 vnames.append(vname[1:])  # get rid of the first '/'
 
             vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 1
+            Nmax   = max([len(vname) for vname in vnames]) + 2
             for vname in vnames:
                 d    = f[vname]
                 if len(d.shape) == 0:
@@ -72,7 +72,7 @@ if os.path.isfile(fullFileName):
             f = SD(fullFileName, SDC.READ)
             vnames = sorted(f.datasets().keys())
             vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 1
+            Nmax   = max([len(vname) for vname in vnames]) + 2
             for vname in vnames:
                 d    = f.select(vname)
                 info = d.info()
@@ -100,7 +100,7 @@ if os.path.isfile(fullFileName):
                 f      = readsav(fullFileName)
                 vnames = sorted(f.keys())
                 vnames_next = []
-                Nmax   = max([len(vname) for vname in vnames]) + 1
+                Nmax   = max([len(vname) for vname in vnames]) + 2
                 for vname in vnames:
                     data = f[vname]
                     dataT = type(data)
@@ -124,7 +124,7 @@ if os.path.isfile(fullFileName):
             f = netcdf_file(fullFileName)
             vnames = f.variables.keys()
             vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 1
+            Nmax   = max([len(vname) for vname in vnames]) + 2
             for vname in vnames:
                 d = f.variables[vname]
                 if len(d.shape) == 1 and d.shape[0] == 1:
@@ -147,7 +147,7 @@ if os.path.isfile(fullFileName):
             f = nc4.Dataset(fullFileName, 'r')
             vnames = f.variables.keys()
             vnames_next = []
-            Nmax   = max([len(vname) for vname in vnames]) + 1
+            Nmax   = max([len(vname) for vname in vnames]) + 2
             for vname in vnames:
                 d = f.variables[vname]
                 if d.ndim==1 and d[...].size == 1:
