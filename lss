@@ -151,7 +151,7 @@ if os.path.isfile(fullFileName):
             # vnames = []
             # for vname in GET_VNAMES_NC(f):
             #     vnames.append(vname[1:])  # get rid of the first '/'
-            vnames = f.varialbes.keys()
+            vnames = f.variables.keys()
 
             vnames_next = []
             Nmax   = max([len(vname) for vname in vnames]) + 2
