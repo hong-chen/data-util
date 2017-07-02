@@ -120,31 +120,22 @@ if os.path.isfile(fullFileName):
         try:
             import netCDF4 as nc4
 
-            def walktree(top):
-                values = top.groups.values()
-                yield values
-                for value in top.groups.values():
-                    for children in walktree(value):
-                        yield children
-
-            rootgrp = nc4.Dataset(fullFileName, 'r')
-            for children in walktree(rootgrp):
-                 for child in children:
-                     print(child)
-
-            exit()
-
             def GET_VNAMES_NC(g, prefix=''):
-                for key in g.variables.keys():
-                    item = g.variables[key]
-                    print(g.groups.keys())
-                    path = '%s/%s' % (prefix, key)
-                    if isinstance(item, nc4.Variable):
-                        yield path
-                    elif isinstance(item, nc4.Group):
-                        yield from GET_VNAMES_NC(item, prefix=path)
+                keys = list(g.variables.keys())+list(g.groups.keys())
+                for key in keys:
+                    try:
+                        item = g.variables[key]
+                        if isinstance(item, nc4.Variable):
+                            path = '%s/%s' % (prefix, key)
+                            yield path
+                    except KeyError:
+                        item = g.groups[key]
+                        if isinstance(item, nc4.Group):
+                            yield from GET_VNAMES_NC(item, prefix=path)
 
             f = nc4.Dataset(fullFileName, 'r')
+            print(f.groups.keys())
+            exit()
 
             if 'netcdf4' in f.file_format.lower():
                 print('+ netCDF4')
