@@ -138,7 +138,6 @@ if os.path.isfile(fullFileName):
                     path = '%s/%s' % (prefix, key)
                     yield from GET_VNAMES_NC(item, prefix=path)
 
-
             f = nc4.Dataset(fullFileName, 'r')
 
             if 'netcdf4' in f.file_format.lower():
