@@ -126,31 +126,32 @@ if os.path.isfile(fullFileName):
         try:
             import netCDF4 as nc4
 
-            def GET_VNAMES_NC(g, prefix=''):
-                keys = list(g.variables.keys())+list(g.groups.keys())
-                for key in keys:
-                    try:
-                        item = g.variables[key]
-                        if isinstance(item, nc4.Variable):
-                            path = '%s/%s' % (prefix, key)
-                            yield path
-                    except KeyError:
-                        item = g.groups[key]
-                        if isinstance(item, nc4.Group):
-                            yield from GET_VNAMES_NC(item, prefix=path)
+            # def GET_VNAMES_NC(g, prefix=''):
+            #     keys = list(g.variables.keys())+list(g.groups.keys())
+            #     for key in keys:
+            #         try:
+            #             item = g.variables[key]
+            #             if isinstance(item, nc4.Variable):
+            #                 path = '%s/%s' % (prefix, key)
+            #                 yield path
+            #         except KeyError:
+            #             item = g.groups[key]
+            #             if isinstance(item, nc4.Group):
+            #                 yield from GET_VNAMES_NC(item, prefix=path)
 
             f = nc4.Dataset(fullFileName, 'r')
-            print(f.groups.keys())
-            exit()
+            # print(f.groups.keys())
+            # exit()
 
             if 'netcdf4' in f.file_format.lower():
                 print('+ netCDF4')
             else:
                 print('+ netCDF')
 
-            vnames = []
-            for vname in GET_VNAMES_NC(f):
-                vnames.append(vname[1:])  # get rid of the first '/'
+            # vnames = []
+            # for vname in GET_VNAMES_NC(f):
+            #     vnames.append(vname[1:])  # get rid of the first '/'
+            vnames = f.varialbes.keys()
 
             vnames_next = []
             Nmax   = max([len(vname) for vname in vnames]) + 2
