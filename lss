@@ -24,7 +24,7 @@ else:
 if os.path.isfile(fullFileName):
     extensionL = extension.lower()
 
-    # HDF5 file
+    # HDF5 =========================================================================================
     if extensionL in ['h5', 'hdf5']:
         try:
             import h5py
@@ -40,8 +40,8 @@ if os.path.isfile(fullFileName):
                     elif isinstance(item, h5py.Group):
                         yield from GET_VNAMES_H5(item, prefix=path)
 
-            print('+ HDF5')
             f = h5py.File(fullFileName, 'r')
+            print('+ HDF5')
 
             vnames = []
             for vname in GET_VNAMES_H5(f):
@@ -64,14 +64,14 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "h5py" has NOT been installed.')
 
-    # HDF4
+    # HDF4 =========================================================================================
     elif extensionL in ['hdf', 'h4', 'hdf4']:
 
         try:
 
             from pyhdf.SD import SD, SDC
-
             print('+ HDF4')
+
             f = SD(fullFileName, SDC.READ)
             vnames = sorted(f.datasets().keys())
             vnames_next = []
@@ -92,11 +92,12 @@ if os.path.isfile(fullFileName):
                     print('%s %s : Dataset %s' % (vname, '-'*(Nmax-len(vname)), str(info[2]).replace('[', '(').replace(']', ')')))
             f.end()
             print('-')
+
         except ImportError:
             # "pip3 install python-hdf4"
             exit('Error [lss]: "pyhdf" has NOT been installed.')
 
-    # IDL SAV
+    # IDL SAV =====================================================================================
     elif extensionL in ['out', 'sav', 'idl']:
 
         try:
@@ -123,7 +124,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "numpy" has NOT been installed.')
 
-    # netCDF, netCDF4
+    # netCDF, netCDF4 =============================================================================
     elif extensionL in ['nc', 'netcdf', 'cdf', 'n4', 'nc4']:
 
         try:
@@ -176,7 +177,7 @@ if os.path.isfile(fullFileName):
         except ImportError:
             exit('Error [lss]: "netCDF4" has NOT been installed.')
 
-    # GeoTIFF
+    # GeoTIFF =====================================================================================
     elif extensionL in ['tiff']:
         executable = 'gdalinfo'
         if shutil.which(executable) != None:
@@ -186,15 +187,16 @@ if os.path.isfile(fullFileName):
         else:
             exit('Error [lss]: can NOT locate %s.' % executable)
 
-    # PNG
+    # PNG =========================================================================================
     elif extensionL in ['png']:
+
         executable = 'imgcat'
         if shutil.which(executable) != None:
             os.system('%s %s' % (executable, fullFileName))
         else:
             exit('Error [lss]: can NOT locate %s.' % executable)
 
-    # other file
+    # other file ==================================================================================
     else:
         os.system('less %s' % fullFileName)
 
