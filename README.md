@@ -58,17 +58,9 @@ This code can be used to explore data with the following format:
   Percent_Inputs ------- : Dataset  (3600, 7200)
   Percent_Snow --------- : Dataset  (3600, 7200)
   -
-  Sample code for reading 'Percent_Snow' in 'MCD43C3.A2015337.005.2015365205333.hdf':
-  --------------------------------------------------------------------------------
-  from pyhdf.SD import SD, SDC
-  fname = 'MCD43C3.A2015337.005.2015365205333.hdf'
-  f = SD(fname, SDC.READ)
-  data = f.select('Percent_Snow')[:]
-  f.end()
-  --------------------------------------------------------------------------------
   ```
 
-4. For data that has unclear file type from its extension, e.g., `test.idlsav`,
+4. For data that has unclear file type extension, e.g., `test.idlsav`,
 
   ```bash
   lss test.idlsav idl
