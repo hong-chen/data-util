@@ -66,6 +66,7 @@ if os.path.isfile(fullFileName):
 
     # HDF4
     elif extensionL in ['hdf', 'h4', 'hdf4']:
+
         try:
 
             from pyhdf.SD import SD, SDC
@@ -97,6 +98,7 @@ if os.path.isfile(fullFileName):
 
     # IDL SAV
     elif extensionL in ['out', 'sav', 'idl']:
+
         try:
             import numpy
             try:
@@ -123,20 +125,23 @@ if os.path.isfile(fullFileName):
 
     # netCDF, netCDF4
     elif extensionL in ['nc', 'netcdf', 'cdf', 'n4', 'nc4']:
+
         try:
             import netCDF4 as nc4
 
             def GET_VNAMES_NC(g, prefix=''):
                 keys_v = list(g.variables.keys())
                 keys_g = list(g.groups.keys())
-                for key in keys_v:
-                    item = g.variables[key]
-                    path = '%s/%s' % (prefix, key)
-                    yield path, item
-                for key in keys_g:
-                    item = g.groups[key]
-                    path = '%s/%s' % (prefix, key)
-                    yield from GET_VNAMES_NC(item, prefix=path)
+                keys   = keys_v + keys_g
+                for key in keys:
+                    if key in keys_v:
+                        item = g.variables[key]
+                        path = '%s/%s' % (prefix, key)
+                        yield path, item
+                    elif key in keys_g:
+                        item = g.groups[key]
+                        path = '%s/%s' % (prefix, key)
+                        yield from GET_VNAMES_NC(item, prefix=path)
 
             f = nc4.Dataset(fullFileName, 'r')
 
