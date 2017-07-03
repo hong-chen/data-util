@@ -161,7 +161,7 @@ if os.path.isfile(fullFileName):
             for i, vname in enumerate(vnames):
                 d = instances[i]
                 if d.ndim<=1 and d[...].size == 1:
-                    print('%s %s : Data    ' % (vname, '-'*(Nmax-len(vname))), d[...])
+                    print('%s %s : Data    %s' % (vname, '-'*(Nmax-len(vname))), str(d[...]).replace(']', '').replace('[', ''))
                 else:
                     vnames_next.append(vname)
                     instances_next.append(d)
