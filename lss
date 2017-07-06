@@ -64,6 +64,7 @@ if os.path.isfile(fullFileName):
             exit('Error [lss]: "h5py" has NOT been installed.')
 
     # HDF4 =========================================================================================
+    # will work on this next
     elif extensionL in ['hdf', 'h4', 'hdf4']:
 
         try:
